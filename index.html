@@ -7,12 +7,16 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <style>
   body{
-    margin-top: 2em;
+    padding-top: 2em;
+    background-color: rgba(205,205,205,.1);
   }
   #messageArea{
     display:none;
   }
   #userErr{
+    display:none;
+  }
+  #msgErr{
     display:none;
   }
 </style>
@@ -23,7 +27,7 @@
       <div class="col-md-12">
         <form id="userForm">
           <div class="form-group">
-            <label>Enter Username</label>
+            <label>Enter your name</label>
             <textarea class="form-control" id="username"></textarea>
             <br />
             <input type="submit" class="btn btn-primary" value="Login">
@@ -45,7 +49,10 @@
       <div class="col-md-8">
         <div class="chat" id="chat">
         </div>
-
+        <div id="msgErr" class="alert alert-dismissible alert-danger">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          <p style="text-align: center">Please enter a message</p>
+        </div>
         <form id="messageForm">
           <div class="form-group">
             <label>Enter Message</label>
@@ -69,15 +76,6 @@
         var $users = $('#users');
         var $username = $('#username');
 
-        $msgForm.submit(function(e){
-          e.preventDefault();
-          socket.emit('send message', $msg.val());
-          $msg.val('');
-        });
-
-        socket.on('new message', function(data){
-          $chat.append('<div class="well"><strong>' + data.usr + ': </strong>'+data.msg+'</div>')
-        });
 
         $userForm.submit(function(e){
           e.preventDefault();
@@ -88,9 +86,14 @@
               }
           });
           $username.val('');
-          
         });
 
+        $('#username').keypress(function (e) {
+          if (e.which == 13) {
+            $('#userForm').submit();
+            return false;    //<---- Add this line
+          }
+        });
 
         socket.on('get users', function(data){
 
@@ -103,10 +106,42 @@
         });
 
         socket.on('throw usrError', function(){
+          $('#userErr').fadeIn();
+          setTimeout(function(){
+            $('#userErr').fadeOut();  
+          }, 2500);
+        });
 
-        $('#userErr').show();
+        socket.on('throw msgError', function(){
+          $('#msgErr').fadeIn();
+          setTimeout(function(){
+            $('#msgErr').fadeOut();  
+          }, 2500);
+        });
 
-        })
+        $msgForm.submit(function(e){
+          e.preventDefault();
+          socket.emit('send message', $msg.val());
+          $msg.val('');
+        });
+
+        socket.on('new message', function(data){
+          if(data.msg.length > 0){
+          $chat.append('<div class="well"><strong>' + data.usr + ': </strong>'+data.msg+'</div>')
+        }
+        else{
+
+        }
+        });
+
+        $('#message').keypress(function (e) {
+          if (e.which == 13) {
+            $('#messageForm').submit();
+            return false;    //<---- Add this line
+          }
+        });
+
+
 
     });
   </script>

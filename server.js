@@ -40,8 +40,12 @@ io.sockets.on('connection', function(socket){
   socket.on('send message', function(data){
 
   		console.log(data);
+      if(data.length > 0){
   		io.sockets.emit('new message', {msg: data, usr: socket.username});
-
+    }
+    else{
+      io.sockets.emit('throw msgError');
+    }
 
   });
 
