@@ -18,13 +18,29 @@ app.get('/', function(req, res){
 });
 
 
+app.get('/chat', function(req, res){
+  res.sendFile(path.join(__dirname, '/chat.html'));
+});
+
+
 
 io.sockets.on('connection', function(socket){
+
+Object.keys(io.sockets.sockets).forEach(function(id) {
+    console.log("ID:",id)  // socketId
+    // send num of concurrent connections to client
+  io.sockets.emit('update socketids', {sid: id});
+
+})
+
 
 	//connect
 	connections.push(socket);
 	console.log('--New user connected--');
 	console.log('Connections: %s sockets connected', connections.length);
+
+  // send num of concurrent connections to client
+  io.sockets.emit('update connections', {noc: connections.length});
 
 	//disconnect
   socket.on('disconnect', function(data){
@@ -34,7 +50,6 @@ io.sockets.on('connection', function(socket){
     console.log('--Existing user disconnected--');
 	console.log('Connections: %s sockets connected', connections.length);
   });
-
 
   // send message
   socket.on('send message', function(data){
@@ -61,13 +76,13 @@ io.sockets.on('connection', function(socket){
   			callback(false);
   			io.sockets.emit('throw usrError');
   		}
-
   		
   });
 
 
   function updateUsernames(){
   	io.sockets.emit('get users', users);
+   // io.sockets.emit('update connections', {noc: connections.length});
   }
 });
 
