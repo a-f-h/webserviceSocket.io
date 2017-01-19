@@ -49,6 +49,8 @@ Object.keys(io.sockets.sockets).forEach(function(id) {
   	connections.splice(connections.indexOf(socket),1);
     console.log('--Existing user disconnected--');
 	console.log('Connections: %s sockets connected', connections.length);
+
+	//console.log(io);
   });
 
   // send message
@@ -61,6 +63,26 @@ Object.keys(io.sockets.sockets).forEach(function(id) {
     else{
       io.sockets.emit('throw msgError');
     }
+
+  });
+
+    // client app connection
+  socket.on('clientApp connect', function(data){
+
+  	if(data.length > 0){
+  		console.log(data);
+  		io.sockets.emit('clientApp connect', 'you are connected!');
+  	}
+
+  });
+
+  // client app message
+  socket.on('clientApp message', function(data){
+
+  	if(data.length > 0){
+  		console.log(data);
+  		io.sockets.emit('clientApp message', 'Server received message: (' + data + ')');
+  	}
 
   });
 

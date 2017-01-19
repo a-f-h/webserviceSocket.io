@@ -52,7 +52,7 @@
         });
 
         socket.on('update socketids', function(data){
-            $connSockets.html(data.sid);
+            $connSockets.html('<li class="list-group-item">' + data.sid + '</li>');
         });
 
     });
