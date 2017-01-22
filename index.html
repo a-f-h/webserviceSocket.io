@@ -22,6 +22,7 @@
     margin-top: -6px;
   }
 
+
 </style>
 </head>
 <body>
@@ -42,7 +43,27 @@
     <div id="dataPostArea" class="row">
       <div class="col-md-12">
         <div class="jumbotron">
-          Client App posted:
+          <table class="table table-curved">
+          <thead class="thead-inverse">
+            <tr>
+              <th style="padding-left:6%;">Tag Value</th>
+              <th>Read Time</th>
+              <th style="text-align:center;">Verification</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding-left:6%;">105000003948596294084</td>
+              <td>3/2/17 10:23:46 AM </td>
+              <td style="text-align:center;">
+                <div style="color:rgba(0,153,51,0.5); font-size: 18pt; margin-top:-4px;">
+                <span class="glyphicon glyphicon-ok-circle" aria-hidden="true">
+                </span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
           <br />
           <div id="dataPostDetail">
             <span id="tData"></span>
@@ -58,8 +79,6 @@
         var $tData = $('#tData');
 
         var socket = io.connect();
-
-
 
         socket.on('update connections', function(data){
             $numOfConns.html(data.noc);

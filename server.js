@@ -63,7 +63,6 @@ Object.keys(io.sockets.sockets).forEach(function(id) {
     else{
       io.sockets.emit('throw msgError');
     }
-
   });
 
     // client app connection
@@ -73,7 +72,6 @@ Object.keys(io.sockets.sockets).forEach(function(id) {
   		console.log(data);
   		io.sockets.emit('clientApp connect', 'you are connected!');
   	}
-
   });
 
   // client app message
@@ -87,7 +85,6 @@ Object.keys(io.sockets.sockets).forEach(function(id) {
   	else{
   		io.sockets.emit('clientApp disconnect');
   	}
-
   });
 
   // new user
@@ -101,8 +98,7 @@ Object.keys(io.sockets.sockets).forEach(function(id) {
   		else{
   			callback(false);
   			io.sockets.emit('throw usrError');
-  		}
-  		
+  		}	
   });
 
 

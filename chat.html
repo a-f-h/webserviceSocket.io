@@ -10,6 +10,18 @@
     padding-top: 2em;
     background-color: rgba(205,205,205,.1);
   }
+  header{
+    background-color: rgba(0,0,0,.55);
+    color: white;
+    padding: 1.5em;
+    margin-bottom: 1em;
+  }
+  a{
+    float:right;
+    width: 20%;
+    margin-right: 5%;
+    margin-top: -6px;
+  }
   #messageArea{
     display:none;
   }
@@ -23,8 +35,11 @@
 </head>
 <body>
   <div class="container">
+  <header> Chat <a href="/" class="btn btn-info">Home</a>
+  </header>
     <div id="userFormArea" class="row">
       <div class="col-md-12">
+       <div class="jumbotron">
         <form id="userForm">
           <div class="form-group">
             <label>Enter your name</label>
@@ -37,6 +52,7 @@
             <input type="submit" class="btn btn-primary" value="Login">
           </div>
         </form>
+        </div>
       </div>
     </div>
     <div id="messageArea" class="row">
