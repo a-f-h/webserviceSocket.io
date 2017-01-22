@@ -82,6 +82,10 @@ Object.keys(io.sockets.sockets).forEach(function(id) {
   	if(data.length > 0){
   		console.log(data);
   		io.sockets.emit('clientApp message', 'Server received message: (' + data + ')');
+  		io.sockets.emit('update clientPost', data);
+  	}
+  	else{
+  		io.sockets.emit('clientApp disconnect');
   	}
 
   });

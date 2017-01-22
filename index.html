@@ -28,7 +28,7 @@
   <div class="container">
   <header>Webservice Socket.io <a href="/chat" class="btn btn-info">Chat</a>
   </header>
-    <div id="userFormArea" class="row">
+    <div id="connArea" class="row">
       <div class="col-md-12">
         <div class="jumbotron">
           Number of connected clients: <span id="numOfConnections">0</span>
@@ -39,12 +39,26 @@
         </div>
       </div>
     </div>
+    <div id="dataPostArea" class="row">
+      <div class="col-md-12">
+        <div class="jumbotron">
+          Client App posted:
+          <br />
+          <div id="dataPostDetail">
+            <span id="tData"></span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <script>
     $(function(){
         var $numOfConns = $('#numOfConnections');
         var $connSockets = $('#connSockets');
+        var $tData = $('#tData');
+
         var socket = io.connect();
+
 
 
         socket.on('update connections', function(data){
@@ -53,6 +67,10 @@
 
         socket.on('update socketids', function(data){
             $connSockets.html('<li class="list-group-item">' + data.sid + '</li>');
+        });
+
+        socket.on('update clientPost', function(data){
+            $tData.html('<li class="list-group-item">' + data + '</li>');
         });
 
     });
