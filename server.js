@@ -26,17 +26,9 @@ app.get('/chat', function(req, res){
 
 io.sockets.on('connection', function(socket){
 
-Object.keys(io.sockets.sockets).forEach(function(id) {
-    console.log("ID:",id)  // socketId
-    // send num of concurrent connections to client
-  io.sockets.emit('update socketids', {sid: id});
-
-})
-
-
 	//connect
 	connections.push(socket);
-	console.log('--New user connected--');
+	console.log('>--New user connected-->');
 	console.log('Connections: %s sockets connected', connections.length);
 
   // send num of concurrent connections to client
@@ -47,7 +39,7 @@ Object.keys(io.sockets.sockets).forEach(function(id) {
   	users.splice(users.indexOf(socket.username),1);
   	updateUsernames();
   	connections.splice(connections.indexOf(socket),1);
-    console.log('--Existing user disconnected--');
+    console.log('<--Existing user disconnected--<');
 	console.log('Connections: %s sockets connected', connections.length);
 
 	//console.log(io);

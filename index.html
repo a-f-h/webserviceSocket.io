@@ -21,8 +21,6 @@
     margin-right: 5%;
     margin-top: -6px;
   }
-
-
 </style>
 </head>
 <body>
@@ -51,8 +49,8 @@
               <th style="text-align:center;">Verification</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
+          <tbody id="tData">
+         <!--    <tr>
               <td style="padding-left:6%;">105000003948596294084</td>
               <td>3/2/17 10:23:46 AM </td>
               <td style="text-align:center;">
@@ -61,12 +59,12 @@
                 </span>
                 </div>
               </td>
-            </tr>
+            </tr> 
+            <tr id="tData"></tr> -->
           </tbody>
         </table>
           <br />
           <div id="dataPostDetail">
-            <span id="tData"></span>
           </div>
         </div>
       </div>
@@ -81,15 +79,22 @@
         var socket = io.connect();
 
         socket.on('update connections', function(data){
-            $numOfConns.html(data.noc);
-        });
-
-        socket.on('update socketids', function(data){
-            $connSockets.html('<li class="list-group-item">' + data.sid + '</li>');
+            $numOfConns.html('<li class="list-group-item">' + data.noc + '</li>');
         });
 
         socket.on('update clientPost', function(data){
-            $tData.html('<li class="list-group-item">' + data + '</li>');
+
+          var jsonPost = JSON.parse(data);
+          var dupStatus = "";
+          console.log(jsonPost.dupFlag);
+          if(jsonPost.dupFlag == 'False'){
+            dupStatus = '<td style="text-align:center;"><div style="color:rgba(0,153,51,0.6); font-size: 18pt; margin-top:-4px; "><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span></div></td>';
+          }
+          else{
+             dupStatus = '<td style="text-align:center;"><div style="color:rgba(232,179,32,0.6); font-size: 18pt; margin-top:-4px; "><span class="glyphicon glyphicon-alert" aria-hidden="true"></span></div></td>';
+          }
+           $tData.prepend('<tr><td style="padding-left:6%;">'+ jsonPost.rfidValue +'</td><td>'+ jsonPost.scanTime +'</td>'+dupStatus+'</tr>');
+          
         });
 
     });
