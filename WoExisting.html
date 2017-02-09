@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.5.4/bootstrap-select.min.css">
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.5.4/bootstrap-select.js"></script>
+<style>
+
+  body{
+    padding-top: 2em;
+    background-color: rgba(205,205,205,.1);
+  }
+  header{
+    background-color: rgba(0,0,0,.55);
+    color: white;
+    padding: 1.5em;
+    margin-bottom: 1em;
+  }
+  #uprRightBtn{
+    float:right;
+    width: 20%;
+    margin-right: 5%;
+    margin-top: -6px;
+  }
+
+  .well{
+     box-shadow: 0px 5px 15px rgba(0,0,0,.1);
+  }
+  .wrapper{
+    text-align: center;
+  }
+  #btnReadTags{
+    width: 50%;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+  <header> Setup Work Order <a href="/" id="uprRightBtn" class="btn btn-info">Home</a>
+  </header>
+    <div id="FormArea" >
+      <div class="jumbotron">
+        <form id="Form" style="text-align: center;">
+          <div class="form-group" style="display: inline-flex;">
+      
+              <label style="padding-right: 1em;">Customer </label>
+              <select class="selectpicker" data-size="5">
+                  <option>Fry's</option>
+                  <option>Flowers</option>
+                  <option>Walmart</option>
+                </select>
+
+            <div class="col-md-6" style="display: inline-flex; margin-left: 2em;">
+              <label>Tag Prefix </label>
+                 <input type="text" class="form-control" id="txtTagPrefix" style="float:right;margin-left:1em;" readonly="true">
+            </div>
+          </div>
+          <div class="form-group" style="display: inline-flex;">
+            <div class="col-md-6" style="display: inline-flex;">
+              <label style="padding-right: 2em;">WO#</label>
+              <select class="selectpicker" data-size="5">
+                  <option>ATL008490</option>
+                  <option>ER0083739</option>
+                </select>
+
+            </div>
+            <div class="col-md-6" style="display: inline-flex; margin-left:3em;">
+              <label>Qty </label>
+                 <input type="text" class="form-control" id="txtQty" style="float:right;margin-left:1em;" readonly="true">
+            </div>
+          </div>
+
+        </form>
+        <br />
+        <br />
+        <div class="wrapper">
+          <a href="/readTags" id="btnReadTags" class="btn btn-success"><h4>START</h4></a>
+        </div>
+      </div>
+    </div>
+ 
+  <script>
+    $(function(){
+        
+    console.log('the work order page loaded!!@#!');
+     window.onload=function(){
+      $('.selectpicker').selectpicker();
+
+      $('.ex-disable').click(function() {
+          $('.disable-example').prop('disabled',true);
+          $('.disable-example').selectpicker('refresh');
+      });
+      $('.ex-enable').click(function() {
+          $('.disable-example').prop('disabled',false);
+          $('.disable-example').selectpicker('refresh');
+      });
+
+      };
+
+
+    });
+  </script>
+</body>
+</html>

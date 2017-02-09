@@ -17,6 +17,17 @@ app.get('/', function(req, res){
   res.sendFile(path.join(__dirname, '/index.html'));
 });
 
+app.get('/woExisting', function(req, res){
+  res.sendFile(path.join(__dirname, '/WoExisting.html'));
+});
+
+app.get('/woNew', function(req, res){
+  res.sendFile(path.join(__dirname, '/WoNew.html'));
+});
+
+app.get('/readTags', function(req, res){
+  res.sendFile(path.join(__dirname, '/ReadTags.html'));
+});
 
 app.get('/chat', function(req, res){
   res.sendFile(path.join(__dirname, '/chat.html'));
